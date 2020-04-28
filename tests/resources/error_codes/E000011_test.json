@@ -1,0 +1,10 @@
+{
+    "Error_Code": "ERROR_CODE_123456",
+    "Alert_Condition": "System was not able to insert a consumed file.",
+    "Severity": "High",
+    "Alert_Message": "Could not insert a consumed file. This could result in duplicate entries.",
+    "Recipient": "#operation-channel",
+    "Suggested_Actions": "Forward Alert to Respective Team",
+    "Escalation_Procedure": "operations_support@mozilla.com",
+    "Notification_Channel": "NOTIFICATION_CHANNEL_123456"
+}
