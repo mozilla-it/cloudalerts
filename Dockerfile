@@ -3,7 +3,7 @@ LABEL maintainer="Bryan Sieber bsieber@mozilla.com"
 
 COPY cloudalerts /workspace/cloudalerts
 COPY tests /workspace/tests
-COPY .secrets.baseline Pipfile Pipfile.lock setup.py /workspace/
+COPY .secrets.baseline setup.py /workspace/
 
 WORKDIR /workspace
 
