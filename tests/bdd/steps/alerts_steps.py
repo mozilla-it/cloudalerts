@@ -42,6 +42,6 @@ class AlertSteps(ParentStep):
             value = row["value"]
             assert self.response[key] == value
 
-    @given("the client logger is {client}")
-    def step_impl(self, client):
+    @given("the client logger is {cloud_client}")
+    def step_impl(self, cloud_client):
         CloudLogging.alert_logger = AlertLogger(client=Mock())
