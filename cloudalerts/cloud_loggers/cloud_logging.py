@@ -52,9 +52,9 @@ class CloudLogging:
 
     __instance = None
 
-    def __init__(self, client=google.cloud.logging.Client()):
+    def __init__(self, client=google.cloud.logging.Client):
         if CloudLogging.__instance is None:
-            CloudLogging.__instance = CloudLogging.__CloudLogger(client=client)
+            CloudLogging.__instance = CloudLogging.__CloudLogger(client=client())
 
     def get_logger(self):
         return self.__instance
