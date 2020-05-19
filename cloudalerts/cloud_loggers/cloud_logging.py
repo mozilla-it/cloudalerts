@@ -58,3 +58,6 @@ class CloudLogging:
 
     def get_logger(self):
         return self.__instance
+
+    def get_instance(self):
+        return self.__instance

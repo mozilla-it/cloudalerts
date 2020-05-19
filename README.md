@@ -38,7 +38,7 @@ When using CloudAlerts there are two main components:
 - CloudLogging
     - This is the logging component that can be used as a wrapper for connecting with Cloud Client logging solutions.
     - Currently the logging is set for Google to use the Stackdriver client
-- AlertUtils
+- Alerter
     - This component is used to create JSON blobs, either through jinja2 templatized JSON files
     - The initialization of this component for usability requires that you point to the file directory of the co-located code and error codes
 
@@ -47,27 +47,32 @@ When using CloudAlerts there are two main components:
 Initialization is REQUIRED for alerting, as the alerts and errors are co-located with the code.
 Please point this component to your directory of JSON error_codes.
 
-Here's a brief example for interacting with AlertUtils and what to expect.
+Here's a brief example for interacting with Alerter and what to expect.
 ```
-** [Initialization: only required once!] **
-AlertUtils.initialize(
-               path_to_err_templates = <path_to_err_templates/>
-              )
+from cloudalerts.alerts.alerter import Alerter
+Alerter(path_to_err_templates = <path_to_err_templates/>)
 
 ** [Get alerting info from error code]**
-alert_dict = AlertUtils.get_alerting_info(<error_code/>)
+alert_dict = Alerter()
+            .get_instance()
+            .get_alerting_info(<error_code/>)
 
 ** [Get template alert filled with data provided]**
-alert_dict = AlertUtils.get_alerting_info_parameterize(<template_error_code/>, <data/>)
+alert_dict = Alerter()
+            .get_instance()
+            .get_alerting_info_parameterize(<template_error_code/>, <data/>)
 ```
 
 Below you can find some example outputs when using AlertUtils to generate your JSON error codes in structured loggable values.
 ```
-from cloudalerts.alerts.alert_utils import AlertUtils
-AlertUtils.initialize("LOOK AT THE EXAMPLE ABOVE")
-AlertUtils.get_alerting_info("error_code")
+from cloudalerts.alerts.alerter import Alerter
+Alerter()
+.get_instance()
+.get_alerting_info("error_code")
 >>> {'key1': 'value1', 'key2': 'value2'}
-AlertUtils.get_alerting_info_parameterize("error_code",{"key_to_replace":"value_for_replacement"})
+Alerter()
+.get_instance()
+.get_alerting_info_parameterize("error_code",{"key_to_replace":"value_for_replacement"})
 >>> {'key_non_template': 'same_value', 'key_template': 'injected new value into key - value_for_replacement'}
 ```
 
@@ -85,14 +90,17 @@ For use with Stackdriver (on google cloud platform) we need to ensure correct EN
 - log_alert_by_error_code
     - Takes an error code, pulls that structured payload from AlertUtils then sends it to the CloudLogger
     - ...currently only supporting error blobs not requiring templatized injection.
+
 ```
-from cloudalerts.cloud_loggers.alert_logging import CloudLogging
-logger = CloudLogging.get_logger()
+from cloudalerts.cloud_loggers.cloud_logging import CloudLogging
+logger = CloudLogging().get_logger()
+...
 logger.log_alert_message("Error message")
 >>> (sending struct payload with MESSAGE as the provided messaged to the cloud client logger)
 
 logger.log_alert_info(AlertUtils.get_alerting_info("error_code"))
 >>> sending struct payload with alert dict being the provided payload to the cloud client logger
+
 logger.log_alert_by_error_code("error_code")
 >>> sending struct payload with alert dict being the provided payload to the cloud client logger
 ```
@@ -105,6 +113,7 @@ logger.log_alert_by_error_code("error_code")
 ```
 logger.log_struct_message("Error message")
 >>> (sending struct payload with MESSAGE as the provided messaged to the cloud client logger)
+
 logger.log_struct(AlertUtils.get_alerting_info("error_code"))
 >>> sending struct payload with alert dict being the provided payload to the cloud client logger
 ```
