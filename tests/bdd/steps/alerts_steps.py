@@ -3,8 +3,8 @@ from unittest.mock import Mock
 
 from behave import given, then, when
 
-from cloudalerts.alerts.alert_utils import AlertUtils
-from cloudalerts.cloud_loggers.alert_logging import AlertLogger, CloudLogging
+from cloudalerts.alerts.alerter import Alerter
+from cloudalerts.cloud_loggers.cloud_logging import CloudLogging
 from tests.bdd.steps.parent_step import ParentStep
 
 
@@ -13,7 +13,7 @@ class AlertSteps(ParentStep):
 
     @given("error code folder {path}")
     def error_code(self, path):
-        AlertUtils.initialize(path)
+        Alerter(path_to_err_templates=path)
 
     @when("we alert")
     def we_alert(self):
@@ -26,14 +26,16 @@ class AlertSteps(ParentStep):
             if key == "ERROR_CODE":
                 error_code = value
 
-        self.response = AlertUtils.get_alerting_info_parameterize(
-            error_code, param_dict
+        self.response = (
+            Alerter()
+            .get_instance()
+            .get_alerting_info_parameterize(error_code, param_dict)
         )
 
     @when("we alert {error_code}")
     def we_alert_error(self, error_code):
         # integrations.error_codes = alerts_test_folder
-        self.response = AlertUtils.get_alerting_info(error_code)
+        self.response = Alerter().get_instance().get_alerting_info(error_code)
 
     @then("template is set with")
     def setup_template(self):
@@ -44,4 +46,4 @@ class AlertSteps(ParentStep):
 
     @given("the client logger is {cloud_client}")
     def step_impl(self, cloud_client):
-        CloudLogging.alert_logger = AlertLogger(client=Mock())
+        CloudLogging(client=Mock())
