@@ -11,3 +11,4 @@ gen
 *pyc
 .venv/
 *.egg-info/*
+build/
