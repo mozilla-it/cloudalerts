@@ -46,4 +46,4 @@ class AlertSteps(ParentStep):
 
     @given("the client logger is {cloud_client}")
     def step_impl(self, cloud_client):
-        CloudLogging(client=Mock())
+        CloudLogging(client=Mock)
