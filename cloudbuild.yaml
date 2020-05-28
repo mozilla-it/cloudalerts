@@ -1,0 +1,4 @@
+steps:
+- id: TOX_DOCKER
+  name: 'docker'
+  args: ['build', '.', '-f', 'Dockerfiles/tox_docker']

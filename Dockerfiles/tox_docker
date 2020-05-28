@@ -1,0 +1,10 @@
+FROM python:3
+
+COPY cloudalerts /workspace/cloudalerts
+COPY tests /workspace/tests
+COPY .secrets.baseline pyproject.toml /workspace/
+
+WORKDIR /workspace
+
+RUN pip install .
+RUN tox
