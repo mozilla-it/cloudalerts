@@ -56,27 +56,7 @@ envlist = py37
 [testenv]
 whitelist_externals = poetry
 commands =
-    poetry install -v --no-root
     poetry run behave tests/bdd
-
-[testenv:setup-docs]
-whitelist_externals = {[testenv]whitelist_externals}
-commands =  poetry install
-
-[testenv:behave-docs]
-whitelist_externals = {[testenv:setup-docs]whitelist_externals}
-commands =  {[testenv:setup-docs]commands}
-            poetry run behave --dry-run --no-summary -q --format sphinx.steps -o {toxworkdir}/.tmp/steps tests/bdd
-            #After configuring sphinx-build try removing this commented code
-            #poetry run sphinx-build -b html {toxworkdir}/.tmp/steps auto_docs/html
-
-[testenv:docs]
-whitelist_externals = {[testenv:setup-docs]whitelist_externals}
-description = invoke sphinx-build to build the HTML docs
-basepython = python3.7
-commands =  {[testenv:setup-docs]commands}
-            #After configuring sphinx-build try removing this commented code
-            #poetry run sphinx-build -d "{toxworkdir}/docs_doctree" doc "auto_docs/html" --color -W -bhtml {posargs}
 """
 
 
