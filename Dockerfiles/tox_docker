@@ -6,5 +6,6 @@ COPY .secrets.baseline pyproject.toml /workspace/
 
 WORKDIR /workspace
 
-RUN pip install .
-RUN tox
+RUN pip install poetry
+RUN poetry install
+RUN poetry run tox
