@@ -38,7 +38,6 @@ authors = [
 ]
 
 [tool.poetry.dependencies]
-poetry = "*"
 google-cloud-logging = "*"
 tox = "*"
 
@@ -53,12 +52,6 @@ legacy_tox_ini = """
 [tox]
 isolated_build = True
 envlist = py37
-
-[tox:.package]
-# note tox will use the same python version as under what tox is installed to package
-# so unless this is python 3 you can require a given python version for the packaging
-# environment via the basepython key
-basepython = python3
 
 [testenv]
 whitelist_externals = poetry

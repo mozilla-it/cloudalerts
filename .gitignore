@@ -12,3 +12,5 @@ gen
 .venv/
 *.egg-info/*
 build/
+*.lock
+dist/

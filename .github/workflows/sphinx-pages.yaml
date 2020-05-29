@@ -1,5 +1,8 @@
 name: Update Sphinx Docs
-on: [push]
+on:
+  push:
+      branches:
+        - master
 jobs:
   sphinx:
     runs-on: ubuntu-latest
