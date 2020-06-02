@@ -1,0 +1,80 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[[tool.poetry.source]]
+name = "mozilla-it"
+url = "https://dp2-prod.appspot.com/pypi"
+
+################
+#    Tools     #
+################
+
+[tool.poetry]
+name = "cloudalerts"
+version = "0.0.1"
+description = "Python tool for accessing mozilla cloud alerting services."
+authors = [
+    "Adam Frank <afrank@mozilla.com>",
+    "Bryan Sieber <bsieber@mozilla.com>",
+    "Chris Valaas <cvalaas@mozilla.com>",
+    "Jorge Spiropulo <jspiropulo@mozilla.com>"
+]
+readme = "README.md"
+homepage = "https://github.com/mozilla-it/cloudalerts"
+repository = "https://github.com/mozilla-it/cloudalerts"
+documentation = "https://mozilla-it.github.io/cloudalerts"
+
+classifiers = [
+    "Topic :: Software Development"
+]
+
+[tool.poetry.dependencies]
+# These packages are mandatory and form the core of this package’s distribution.
+python = ">=3.7"
+google-cloud-logging = "*"
+tox = "*"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "*"
+
+# Note: Tox.skipsdist: Defaults to False but can be toggled to true if issues arise with the lack of a setup.py
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = py37
+
+[testenv]
+deps =
+    behave
+    jinja2
+whitelist_externals =
+    poetry
+commands =
+    poetry run behave tests/bdd
+"""
+
+
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''

@@ -1,12 +1,14 @@
 FROM python:3
-LABEL maintainer="Bryan Sieber bsieber@mozilla.com"
 
 COPY cloudalerts /workspace/cloudalerts
 COPY tests /workspace/tests
-COPY .secrets.baseline setup.py /workspace/
+COPY .secrets.baseline pyproject.toml README.md /workspace/
 
 WORKDIR /workspace
 
-RUN pip3 install --upgrade --no-cache-dir .
+RUN pip install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-ansi --no-root
+RUN poetry run tox
 
-RUN behave tests/bdd
+RUN poetry build

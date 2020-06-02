@@ -9,3 +9,6 @@
 out
 gen
 .tox/
+.venv
+*.lock
+*.egg-info
