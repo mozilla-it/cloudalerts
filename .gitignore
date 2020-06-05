@@ -12,3 +12,4 @@ gen
 .venv
 *.lock
 *.egg-info
+*pyc
