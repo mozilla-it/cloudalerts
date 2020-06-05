@@ -33,12 +33,12 @@ classifiers = [
 # These packages are mandatory and form the core of this package’s distribution.
 python = ">=3.7"
 google-cloud-logging = "*"
+jinja2 = "^2.11.2"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "*"
 tox = "*"
 behave = "*"
-jinja2 = "^2.11.2"
 sphinx = "*"
 
 # Note: Tox.skipsdist: Defaults to False but can be toggled to true if issues arise with the lack of a setup.py
