@@ -1,5 +1,5 @@
-from .cloud_loggers import CloudLogging
-from .cloud_loggers import AlertLogger
 from .alerts import AlertUtils
+from .cloud_loggers import AlertLogger
+from .cloud_loggers import CloudLogging
 
-__all__= ["CloudLogging", "AlertUtils"]
+__all__ = ["CloudLogging", "AlertUtils"]
