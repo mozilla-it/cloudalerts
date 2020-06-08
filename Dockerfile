@@ -6,9 +6,6 @@ COPY .secrets.baseline pyproject.toml README.md /workspace/
 
 WORKDIR /workspace
 
-RUN pip install poetry
-RUN poetry config virtualenvs.create false
-RUN poetry install --no-ansi --no-root
-RUN poetry run tox
-
-RUN poetry build
+RUN pip install .
+RUN pip install tox
+RUN tox

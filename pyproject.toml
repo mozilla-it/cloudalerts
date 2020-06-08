@@ -49,10 +49,10 @@ isolated_build = True
 envlist = py37
 
 [testenv]
-whitelist_externals =
-    poetry
+deps =
+    behave
 commands =
-    poetry run behave tests/bdd
+    behave tests/bdd
 """
 
 
