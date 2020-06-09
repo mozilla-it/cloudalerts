@@ -56,5 +56,5 @@ class CloudLogging:
     def get_logger(cls):
         if cls.alert_logger is None:
             client = google.cloud.logging.Client()
-            cls.logger = AlertLogger(client=client)
-        return cls.logger
+            cls.alert_logger = AlertLogger(client=client)
+        return cls.alert_logger
