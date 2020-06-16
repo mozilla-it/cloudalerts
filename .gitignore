@@ -12,4 +12,5 @@ gen
 .venv
 *.egg-info
 *pyc
+reports
 dist
