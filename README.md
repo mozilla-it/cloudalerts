@@ -1,3 +1,5 @@
+![Cloud Build](https://storage.googleapis.com/dp2-admin-badges/builds/cloudalerts/branches/master.svg)
+
 # cloud-alerts
 
 A github repo for cloud alerting through cloud logging libraries (GCP: Stackdriver).
