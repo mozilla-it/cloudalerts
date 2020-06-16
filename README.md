@@ -1,4 +1,4 @@
-![Cloud Build](https://storage.googleapis.com/dp2-admin-badges/builds/${repo}/branches/${branch}.svg)
+![Cloud Build](https://storage.googleapis.com/dp2-admin-badges/builds/cloudalerts/branches/master.svg)
 
 # cloud-alerts
 
