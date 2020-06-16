@@ -1,4 +1,20 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 steps:
-- id: DOCKER
-  name: 'docker'
-  args: ['build', '.']
+- name: 'gcr.io/$PROJECT_ID/cloudalerts'
+  entrypoint: '/bin/bash'
+  args: ['-c','virtualenv /workspace/venv' ]
+- name: 'gcr.io/$PROJECT_ID/cloudalerts'
+  entrypoint: 'venv/bin/pip'
+  args: ['install', '-V', 'poetry']
+- name: 'gcr.io/$PROJECT_ID/cloudalerts'
+  entrypoint: 'venv/bin/python'
+  args: ['poetry', 'install']
+- name: 'gcr.io/$PROJECT_ID/cloudalerts'
+  entrypoint: 'venv/bin/python'
+  args: ['poetry', 'build']
+- name: 'gcr.io/$PROJECT_ID/cloudalerts'
+  entrypoint: 'venv/bin/python'
+  args: ['poetry', 'run', 'tox']
