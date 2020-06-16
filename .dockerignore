@@ -1,0 +1,15 @@
+# Version Control
+.git
+.gitignore
+
+# Documentation
+docs
+
+# Tox
+.tox
+
+# MyPy
+.mypy_cache
+
+# Coverage
+reports

@@ -12,3 +12,4 @@ gen
 .venv
 *.egg-info
 *pyc
+dist
