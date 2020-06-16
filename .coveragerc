@@ -1,0 +1,43 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+[run]
+branch = True
+# Store coverage at the location, reports/.coverage
+data_file = reports/.coverage
+# Collect coverage from the following sources
+source = cloudalerts
+omit = *tests*
+
+[report]
+show_missing = true
+precision = 2
+# Ignore source errors that can't be found
+ignore_errors = True
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if .debug:
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    logger.
+    stripe.log
+    stripe.verify_ssl_certs
+    stripe.api_base
+    from
+    import
+omit =
+    */tests/*
+    */.venv/*
+    .tox/*
+
+[html]
+# HTML report title
+title = Data Platform Services Code Coverage
+# Write the HTML reports to the reports/html directory
+directory = reports/html
+
+[xml]
+# Write the XML report to reports/coverage.xml
+output = reports/coverage.xml

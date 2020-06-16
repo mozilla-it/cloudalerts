@@ -13,3 +13,4 @@ gen
 *.lock
 *.egg-info
 *pyc
+reports
