@@ -1,4 +1,17 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 steps:
-- id: DOCKER
-  name: 'docker'
-  args: ['build', '.']
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: 'bash'
+  args: [ '-c', 'gcloud secrets versions access latest --secret=private_pypi_write_creds > pypi_creds.txt' ] # pragma: allowlist secret
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ "build",
+          "-f", "Dockerfile",
+          "-t", "mozilla-it/cloudalerts:branch-$BRANCH_NAME",
+          "--build-arg", 'POETRY_HTTP_BASIC_PYPI_USERNAME=$(head -1 pypi_creds.txt)',
+          "--build-arg", 'POETRY_HTTP_BASIC_PYPI_PASSWORD=$(tail -1 pypi_creds.txt)',
+          "--cache-from", "mozilla-it/cloudalerts:branch-$BRANCH_NAME",
+          "."]
+timeout: 1800s
