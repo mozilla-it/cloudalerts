@@ -53,8 +53,11 @@ envlist = py37
 [testenv]
 deps =
     behave
+    pytest
+    pytest-cov
 commands =
-    behave tests/bdd
+    coverage run -m behave tests/bdd --junit
+    coverage report -m --omit="*/test*,.tox/*" --show-missing --fail-under=45
 """
 
 
@@ -80,3 +83,10 @@ exclude = '''
                      # the root of the project
 )
 '''
+
+[tool.pytest.ini_options]
+python_files = "*.py"
+python_functions = "test_*"
+testpaths = [
+    "tests",
+]
