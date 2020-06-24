@@ -36,6 +36,7 @@ google-cloud-logging = "*"
 jinja2 = "^2.11.2"
 python-json-logger = "^0.1.11"
 structlog = "^20.1.0"
+deprecated = "^1.2.10"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "*"
