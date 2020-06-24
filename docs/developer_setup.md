@@ -1,4 +1,5 @@
 # Developer Setup
+
 Technologies used: pipenv, pre-commit, ...
 
 ## Pipenv Setup
@@ -8,7 +9,6 @@ Install all regular env dependencies of the Pipfile in the current directory:
 
 Opens shell with corresponding dependencies to the pipfile(.lock) in the directory that you make the call.
 * `pipenv shell`
-
 
 ### Install Pre-commit
 
@@ -35,6 +35,7 @@ Run the following command to exit `pipenv shell` while in a shell.
 The command `deactivate` will not work to full disengage the pipenv shell as it does with `venv`.
 
 ## Required Environment Variables
+
 These environmental variables must be set.
 * GOOGLE_APPLICATION_CREDENTIALS
 * GCP_PROJECT
