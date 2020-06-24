@@ -1,16 +1,30 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Example user template template
-### Example user template
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 # mypy
 .mypy_cache/
+
 # IntelliJ project files
 .idea/
 *.iml
+
 out
 gen
 .tox/
 .venv
 *.egg-info
 *pyc
-reports
+
+# Virtual Environments
+venv
+penv*
+
+# Python distributions
 dist
+
+# OSX Filesystem
+.DS_Store
+
+# Code coverage reports
+reports
