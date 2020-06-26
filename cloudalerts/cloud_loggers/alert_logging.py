@@ -3,15 +3,20 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import logging
+import sys
 
 import google.cloud.logging
 from deprecated import deprecated
 
 from cloudalerts.alerts.alert_utils import AlertUtils
 
+__excepthook__ = None
+
 
 class AlertLogger:
-    def __init__(self, client):
+    def __init__(self, client, install_sys_hook=True):
+        if install_sys_hook:
+            self.install_sys_hook()
         self.logger = logging.getLogger(__name__)
 
         if self.logger.hasHandlers():
@@ -19,6 +24,18 @@ class AlertLogger:
 
         self.logger.addHandler(logging.StreamHandler())
         self.g_logger = client.logger(__name__)
+
+    def install_sys_hook(self):
+        global __excepthook__
+
+        if __excepthook__ is None:
+            __excepthook__ = sys.excepthook
+
+        def handle_exception(*exc_info):
+            self.error(f"FATAL EXCEPTION->{exc_info}")
+            __excepthook__(*exc_info)
+
+        sys.excepthook = handle_exception
 
     def info(self, msg: str, *args, **kwargs):
         self.logger.info(msg, *args, **kwargs)
