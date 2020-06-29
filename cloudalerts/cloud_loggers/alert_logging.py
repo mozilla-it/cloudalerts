@@ -6,6 +6,7 @@ import logging
 import sys
 
 import google.cloud.logging
+from deprecated import deprecated
 
 from cloudalerts.alerts.alert_utils import AlertUtils
 
@@ -48,14 +49,14 @@ class AlertLogger:
     def error(self, msg: str, *args, **kwargs):
         self.logger.error(msg, *args, **kwargs)
 
-    # deprecated
-    def log_struct(self, info, client=None, **kw):
-        self.g_logger.log_struct(info, client, **kw)
-
     def log_alert_info(self, info, client=None, **kw):
         self.g_logger.log_struct(info, client, **kw)
 
-    # deprecated
+    @deprecated(reason="You should use another function")
+    def log_struct(self, info, client=None, **kw):
+        self.g_logger.log_struct(info, client, **kw)
+
+    @deprecated(reason="You should use another function")
     def log_struct_message(self, message: str):
         dictionary = dict()
         dictionary["MESSAGE"] = message
