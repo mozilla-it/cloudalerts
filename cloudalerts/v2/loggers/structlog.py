@@ -17,7 +17,7 @@ import logging
 
 from structlog import threadlocal, stdlib, processors
 
-from cloudalerts.cloud_loggers.log_filter import censor_header
+from cloudalerts.v2.loggers.log_filter import censor_header
 
 
 def monkeypatch_google_enqueue():

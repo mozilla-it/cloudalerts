@@ -1,5 +1,7 @@
-from .alerts import AlertUtils
-from .cloud_loggers import AlertLogger
-from .cloud_loggers import CloudLogging
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-__all__ = ["CloudLogging", "AlertUtils"]
+from cloudalerts.v1.alerts import AlertUtils
+
+__all__ = ["AlertUtils"]
