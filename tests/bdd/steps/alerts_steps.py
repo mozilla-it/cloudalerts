@@ -3,8 +3,9 @@ from unittest.mock import Mock
 
 from behave import given, then, when
 
-from cloudalerts.alerts.alert_utils import AlertUtils
-from cloudalerts.cloud_loggers.alert_logging import AlertLogger, CloudLogging
+from cloudalerts.v1.alerts import AlertUtils
+from cloudalerts.v1.loggers.alert_logging import AlertLogger
+from cloudalerts.v1.loggers.cloud_logging import CloudLogging
 from tests.bdd.steps.parent_step import ParentStep
 
 

@@ -8,7 +8,7 @@ Google Cloud's Stackdriver service.
 ## Application Setup
 
 ```python
-from cloudalerts.cloud_loggers.structlog import setup
+from cloudalerts.v2.loggers.structlog import setup
 
 setup(log_name="application_logger_name")
 

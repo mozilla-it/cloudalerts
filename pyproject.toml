@@ -12,7 +12,7 @@ url = "https://dp2-prod.appspot.com/pypi"
 
 [tool.poetry]
 name = "cloudalerts"
-version = "0.0.3"
+version = "0.0.4"
 description = "Python tool for accessing mozilla cloud alerting services."
 authors = [
     "Adam Frank <afrank@mozilla.com>",
@@ -47,6 +47,7 @@ sphinx = "*"
 # Note: Tox.skipsdist: Defaults to False but can be toggled to true if issues arise with the lack of a setup.py
 pytest = "^5.4.3"
 pytest-cov = "^2.10.0"
+deprecated = "^1.2.10"
 [tool.tox]
 legacy_tox_ini = """
 [tox]
@@ -56,8 +57,9 @@ envlist = py37
 [testenv]
 deps =
     behave
-    pytest
     coverage
+    deprecated
+    pytest
 commands =
     coverage run -m behave tests/bdd --junit
     coverage run -m pytest {posargs}

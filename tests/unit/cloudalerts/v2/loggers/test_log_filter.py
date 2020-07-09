@@ -6,7 +6,7 @@ import datetime
 
 import pytest
 
-from cloudalerts.cloud_loggers.log_filter import censor_event_dict, censor_header
+from cloudalerts.v2.loggers.log_filter import censor_event_dict, censor_header
 
 single_censorable_value_event_dictionary = {
     "a": "b",

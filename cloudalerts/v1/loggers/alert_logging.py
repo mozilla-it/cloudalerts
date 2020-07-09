@@ -5,10 +5,8 @@
 import logging
 import sys
 
-import google.cloud.logging
 from deprecated import deprecated
-
-from cloudalerts.alerts.alert_utils import AlertUtils
+from cloudalerts.v1.alerts import AlertUtils
 
 __excepthook__ = None
 
@@ -69,14 +67,3 @@ class AlertLogger:
 
     def log_alert_by_error_code(self, error_code: str):
         self.log_struct(AlertUtils.get_alerting_info(error_code=error_code))
-
-
-class CloudLogging:
-    alert_logger: AlertLogger = None
-
-    @classmethod
-    def get_logger(cls):
-        if cls.alert_logger is None:
-            client = google.cloud.logging.Client()
-            cls.alert_logger = AlertLogger(client=client)
-        return cls.alert_logger

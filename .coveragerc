@@ -22,9 +22,6 @@ exclude_lines =
     raise NotImplementedError
     if __name__ == .__main__.:
     logger.
-    stripe.log
-    stripe.verify_ssl_certs
-    stripe.api_base
     from
     import
 omit =
