@@ -12,12 +12,14 @@ repos:
           '--indent', '4',
           '--no-sort-keys',
         ]
-      #    -   id: requirements-txt-fixer
       - id: trailing-whitespace
-  #-   repo: meta
-  #    hooks:
-  #    -   id: check-hooks-apply
-  #    -   id: check-useless-excludes
+  -   repo: meta
+      hooks:
+      -   id: check-hooks-apply
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.3.0
+    hooks:
+      - id: reorder-python-imports
   - repo: https://github.com/pre-commit/mirrors-pylint
     rev: v1.9.1
     hooks:
