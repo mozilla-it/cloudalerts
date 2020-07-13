@@ -1,21 +1,19 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-from google.cloud.logging import Client
-from google.cloud.logging import _helpers
-from google.cloud.logging.handlers import CloudLoggingHandler
-from google.cloud.logging.handlers.transports.background_thread import _Worker
-
-from pythonjsonlogger import jsonlogger
-
-import structlog
-
 import datetime
 import json
-import logging
+import logging.config
 
-from structlog import threadlocal, stdlib, processors
+import structlog
+from google.cloud.logging import _helpers
+from google.cloud.logging import Client
+from google.cloud.logging.handlers import CloudLoggingHandler
+from google.cloud.logging.handlers.transports.background_thread import _Worker
+from pythonjsonlogger import jsonlogger
+from structlog import processors
+from structlog import stdlib
+from structlog import threadlocal
 
 from cloudalerts.v2.loggers.log_filter import censor_header
 
@@ -49,7 +47,25 @@ def event_uppercase(logger, method_name, event_dict):
     return event_dict
 
 
+dict_config = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "json": {
+            "format": "%(message)s %(lineno)d %(pathname)s %(levelname)-8s %(threadName)s",
+            "class": "pythonjsonlogger.jsonlogger.JsonFormatter",
+        }
+    },
+    "handlers": {"json": {"class": "logging.StreamHandler", "formatter": "json"}},
+    "loggers": {
+        "werkzeug": {"level": "ERROR", "handlers": ["json"], "propagate": False},
+        "pytest": {"level": "ERROR", "handlers": ["json"], "propagate": False},
+    },
+}
+
+
 def configure_structlog():
+    logging.config.dictConfig(dict_config)
     structlog.configure(
         context_class=threadlocal.wrap_dict(dict),
         logger_factory=stdlib.LoggerFactory(),
