@@ -1,11 +1,12 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-from typing import Dict
 import json
-from jinja2 import Environment, select_autoescape
+from typing import Dict
+
 import jinja2
+from jinja2 import Environment
+from jinja2 import select_autoescape
 
 
 class AlertUtils:
@@ -55,7 +56,6 @@ class AlertUtils:
         AlertUtils.confirm_initialization()
 
         if error_code in dict.keys(AlertUtils.errors):
-            AlertUtils.__load_error_code(error_code=error_code)
             return AlertUtils.errors.get(error_code)
 
         AlertUtils.errors.update(

@@ -31,7 +31,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 # These packages are mandatory and form the core of this package’s distribution.
-python = ">=3.7"
+python = ">=3.7, <4"
 google-cloud-logging = "*"
 jinja2 = "^2.11.2"
 python-json-logger = "^0.1.11"
@@ -43,6 +43,7 @@ pre-commit = "*"
 tox = "*"
 behave = "*"
 sphinx = "*"
+coverage = "^5.2"
 
 # Note: Tox.skipsdist: Defaults to False but can be toggled to true if issues arise with the lack of a setup.py
 pytest = "^5.4.3"
@@ -61,9 +62,10 @@ deps =
     deprecated
     pytest
 commands =
-    coverage run -m behave tests/bdd --junit
-    coverage run -m pytest {posargs}
-    coverage report -m --omit="*/test*,.tox/*" --show-missing --fail-under=45
+    coverage run --branch -m behave tests/bdd --junit
+    coverage run --branch -a -m pytest {posargs}
+    coverage report -m --omit="*/test*,.tox/*" --show-missing --fail-under=80
+    coverage html
 """
 
 
