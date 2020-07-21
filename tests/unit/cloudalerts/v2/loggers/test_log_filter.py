@@ -1,12 +1,12 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
 import datetime
 
 import pytest
 
-from cloudalerts.v2.loggers.log_filter import censor_event_dict, censor_header
+from cloudalerts.v2.loggers.log_filter import censor_event_dict
+from cloudalerts.v2.loggers.log_filter import censor_header
 
 single_censorable_value_event_dictionary = {
     "a": "b",
@@ -45,6 +45,12 @@ def test_filter_msg_given_empty_event_dictionary():
     event_dict = {}
     censored_event_dict = censor_event_dict(event_dict)
     assert censored_event_dict is event_dict
+
+
+def test_bad_param():
+    event_dict = []
+    with pytest.raises(AttributeError):
+        assert censor_event_dict(event_dict)
 
 
 def test_filter_msg_given_no_event_dictionary():

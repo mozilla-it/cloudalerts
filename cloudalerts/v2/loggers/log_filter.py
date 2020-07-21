@@ -11,19 +11,14 @@ CENSORED_EVENT_VALUES_BY_EVENT_KEY = {
 def censor_event_dict(event_dict):
     if event_dict == dict():
         return event_dict
-    for k, v in event_dict.items():
-        if isinstance(v, dict):
-            censor_event_dict(v)
-        else:
-            for event_key, event_values in CENSORED_EVENT_VALUES_BY_EVENT_KEY.items():
-                if event_dict is not None:
-                    _event_key = event_dict.get(event_key)
-                    if _event_key:
-                        for event_value in event_values:
-                            _event_value = _event_key.get(event_value)
-                            if _event_key and _event_value:
-                                event_dict[event_key][event_value] = "*CENSORED*"
-            return event_dict
+    for event_key, event_values in CENSORED_EVENT_VALUES_BY_EVENT_KEY.items():
+        _event_key = event_dict.get(event_key)
+        if _event_key:
+            for event_value in event_values:
+                _event_value = _event_key.get(event_value)
+                if _event_key and _event_value:
+                    event_dict[event_key][event_value] = "*CENSORED*"
+    return event_dict
 
 
 def censor_header(logger, method_name, event_dict):
