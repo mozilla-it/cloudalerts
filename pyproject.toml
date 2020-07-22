@@ -65,6 +65,7 @@ commands =
     coverage run --branch -m behave tests/bdd --junit
     coverage run --branch -a -m pytest {posargs}
     coverage report -m --omit="*/test*,.tox/*" --show-missing --fail-under=80
+    coverage xml
     coverage html
 """
 
