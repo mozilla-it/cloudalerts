@@ -5,7 +5,6 @@ import json
 import os
 import tempfile
 
-import cloudalerts.v2.alerts.alert_utils
 from cloudalerts.v2.alerts.alert_utils import AlertUtils
 
 
@@ -22,7 +21,7 @@ def test_get_number_of_errors_when_non_empty():
     assert alert_utils.get_length() == 0
 
 
-def test_load_error_details_given_valid_error_content(monkeypatch):
+def test_load_error_details_given_valid_error_content():
     content = {
         "Error_Code": "{{page.ERROR_CODE}}",
         "Alert_Condition": "System was not able to do expected operation.",
