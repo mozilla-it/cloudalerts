@@ -1,11 +1,14 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
+import imp
 import json
 import os
 import tempfile
 
+import cachetools
+
+import cloudalerts.v2.alerts.alert_utils
 from cloudalerts.v2.alerts.alert_utils import AlertUtils
 
 
@@ -18,9 +21,11 @@ def test_get_number_of_errors_when_non_empty():
     alert_utils = AlertUtils("doesnt_matter")
     alert_utils.add("FAKE", 1)
     assert alert_utils.get_length() == 1
+    alert_utils.acknowledge_errors()
+    assert alert_utils.get_length() == 0
 
 
-def test_load_error_details_given_valid_error_content():
+def test_load_error_details_given_valid_error_content(monkeypatch):
     content = {
         "Error_Code": "{{page.ERROR_CODE}}",
         "Alert_Condition": "System was not able to do expected operation.",
@@ -40,6 +45,20 @@ def test_load_error_details_given_valid_error_content():
     )[0]
     alert_utils = AlertUtils(directory)
     assert directory == alert_utils.path_to_err_templates
+    # alert_utils.errors.update({error_code_as_file_name_without_extentions: alert_utils._AlertUtils__load(error_code=error_code_as_file_name_without_extentions)})
+    assert content == alert_utils.get_error_details(
+        error_code=error_code_as_file_name_without_extentions
+    )
+    # again with the "cache"
+    alert_utils = AlertUtils(directory)
+    assert directory == alert_utils.path_to_err_templates
+    alert_utils.errors.update(
+        {
+            error_code_as_file_name_without_extentions: alert_utils._AlertUtils__load(
+                error_code=error_code_as_file_name_without_extentions
+            )
+        }
+    )
     assert content == alert_utils.get_error_details(
         error_code=error_code_as_file_name_without_extentions
     )
