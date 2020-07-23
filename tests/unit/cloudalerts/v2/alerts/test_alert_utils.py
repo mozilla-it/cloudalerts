@@ -1,12 +1,9 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-import imp
 import json
 import os
 import tempfile
-
-import cachetools
 
 import cloudalerts.v2.alerts.alert_utils
 from cloudalerts.v2.alerts.alert_utils import AlertUtils
@@ -45,7 +42,6 @@ def test_load_error_details_given_valid_error_content(monkeypatch):
     )[0]
     alert_utils = AlertUtils(directory)
     assert directory == alert_utils.path_to_err_templates
-    # alert_utils.errors.update({error_code_as_file_name_without_extentions: alert_utils._AlertUtils__load(error_code=error_code_as_file_name_without_extentions)})
     assert content == alert_utils.get_error_details(
         error_code=error_code_as_file_name_without_extentions
     )
