@@ -12,7 +12,7 @@ url = "https://dp2-prod.appspot.com/pypi"
 
 [tool.poetry]
 name = "cloudalerts"
-version = "0.0.6"
+version = "0.0.7"
 description = "Python tool for accessing mozilla cloud alerting services."
 authors = [
     "Adam Frank <afrank@mozilla.com>",
