@@ -2,22 +2,39 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+import datetime
+import json
+import logging
+import logging.config
+
+import structlog
 from google.cloud.logging import Client
 from google.cloud.logging import _helpers
 from google.cloud.logging.handlers import CloudLoggingHandler
 from google.cloud.logging.handlers.transports.background_thread import _Worker
-
 from pythonjsonlogger import jsonlogger
 
-import structlog
-
-import datetime
-import json
-import logging
-
-from structlog import threadlocal, stdlib, processors
-
 from cloudalerts.v2.loggers.log_filter import censor_header
+
+dict_config = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "json": {
+            "format": "%(message)s %(lineno)d %(pathname)s %(levelname)-8s %(threadName)s",
+            "class": "pythonjsonlogger.jsonlogger.JsonFormatter",
+        }
+    },
+    "handlers": {"json": {"class": "logging.StreamHandler", "formatter": "json"}},
+    "loggers": {
+        "": {"handlers": ["json"], "level": "INFO"},
+        "werkzeug": {"level": "ERROR", "handlers": ["json"], "propagate": False},
+        "stripe": {"level": "ERROR", "handlers": ["json"], "propagate": False},
+        "pytest": {"level": "ERROR", "handlers": ["json"], "propagate": False},
+        "botocore": {"level": "ERROR", "handlers": ["json"], "propagate": False},
+        "waitress": {"level": "ERROR", "handlers": ["json"], "propagate": False},
+    },
+}
 
 
 def monkeypatch_google_enqueue():
@@ -50,6 +67,10 @@ def event_uppercase(logger, method_name, event_dict):
 
 
 def configure_structlog():
+    from structlog import processors, stdlib, threadlocal
+
+    logging.config.dictConfig(dict_config)
+
     structlog.configure(
         context_class=threadlocal.wrap_dict(dict),
         logger_factory=stdlib.LoggerFactory(),
