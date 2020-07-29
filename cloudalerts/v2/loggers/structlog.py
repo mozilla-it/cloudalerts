@@ -1,13 +1,15 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 import datetime
 import json
+import logging
 import logging.config
 
 import structlog
-from google.cloud.logging import _helpers
 from google.cloud.logging import Client
+from google.cloud.logging import _helpers
 from google.cloud.logging.handlers import CloudLoggingHandler
 from google.cloud.logging.handlers.transports.background_thread import _Worker
 from pythonjsonlogger import jsonlogger
@@ -62,23 +64,6 @@ def monkeypatch_google_enqueue():
 def event_uppercase(logger, method_name, event_dict):
     event_dict["event"] = event_dict["event"].upper()
     return event_dict
-
-
-dict_config = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "json": {
-            "format": "%(message)s %(lineno)d %(pathname)s %(levelname)-8s %(threadName)s",
-            "class": "pythonjsonlogger.jsonlogger.JsonFormatter",
-        }
-    },
-    "handlers": {"json": {"class": "logging.StreamHandler", "formatter": "json"}},
-    "loggers": {
-        "werkzeug": {"level": "ERROR", "handlers": ["json"], "propagate": False},
-        "pytest": {"level": "ERROR", "handlers": ["json"], "propagate": False},
-    },
-}
 
 
 def configure_structlog():
