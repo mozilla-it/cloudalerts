@@ -60,7 +60,8 @@ def monkeypatch_google_enqueue():
 
 
 def event_uppercase(logger, method_name, event_dict):
-    event_dict["event"] = event_dict["event"].upper()
+    if "event" in event_dict:
+        event_dict["event"] = event_dict["event"].upper()
     return event_dict
 
 
