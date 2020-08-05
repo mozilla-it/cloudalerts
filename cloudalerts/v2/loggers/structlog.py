@@ -59,12 +59,6 @@ def monkeypatch_google_enqueue():
     _Worker.enqueue = decode_json_then_enqueue
 
 
-def event_uppercase(logger, method_name, event_dict):
-    if "event" in event_dict:
-        event_dict["event"] = event_dict["event"].upper()
-    return event_dict
-
-
 def configure_structlog():
     from structlog import processors, stdlib, threadlocal
 
@@ -79,8 +73,6 @@ def configure_structlog():
             stdlib.filter_by_level,
             # Adds logger=module_name (e.g __main__)
             stdlib.add_logger_name,
-            # Uppercase structlog's event name which shouldn't be convoluted with AWS events.
-            event_uppercase,
             # Censor secure data
             censor_header,
             # Allow for string interpolation

@@ -3,15 +3,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 
-def test_event_uppercase():
-    from cloudalerts.v2.loggers.structlog import event_uppercase
-
-    event_dict = {"event": "lower"}
-    expected_dict = {"event": "LOWER"}
-    actual_dict = event_uppercase(None, None, event_dict)
-    assert expected_dict == actual_dict
-
-
 def test_configure_structlog():
     from cloudalerts.v2.loggers.structlog import configure_structlog
 
