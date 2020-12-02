@@ -32,7 +32,7 @@ classifiers = [
 [tool.poetry.dependencies]
 # These packages are mandatory and form the core of this package’s distribution.
 python = ">=3.7, <4"
-google-cloud-logging = "*"
+google-cloud-logging = "1.15.1"
 jinja2 = "^2.11.2"
 python-json-logger = "^0.1.11"
 structlog = "^20.1.0"
