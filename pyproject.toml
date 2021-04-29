@@ -53,7 +53,7 @@ deprecated = "^1.2.10"
 legacy_tox_ini = """
 [tox]
 isolated_build = True
-envlist = py38
+envlist = py37
 
 [testenv]
 deps =
