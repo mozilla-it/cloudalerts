@@ -6,10 +6,10 @@ import json
 import logging.config
 
 import structlog
-from google.cloud.logging import _helpers
 from google.cloud.logging import Client
 from google.cloud.logging.handlers import CloudLoggingHandler
-from google.cloud.logging.handlers.transports.background_thread import _Worker
+from google.cloud.logging_v2 import _helpers
+from google.cloud.logging_v2.handlers.transports.background_thread import _Worker
 from pythonjsonlogger import jsonlogger
 
 from cloudalerts.v2.loggers.log_filter import censor_header
