@@ -1,11 +1,11 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
 import logging
 import sys
 
 from deprecated import deprecated
+
 from cloudalerts.v1.alerts import AlertUtils
 
 __excepthook__ = None
@@ -48,11 +48,11 @@ class AlertLogger:
         self.logger.error(msg, *args, **kwargs)
 
     def log_alert_info(self, info, client=None, **kw):
-        self.g_logger.log_struct(info, client, **kw)
+        self.g_logger.log_struct(info, client)
 
     @deprecated(reason="You should use another function")
     def log_struct(self, info, client=None, **kw):
-        self.g_logger.log_struct(info, client, **kw)
+        self.g_logger.log_struct(info, client)
 
     @deprecated(reason="You should use another function")
     def log_struct_message(self, message: str):
