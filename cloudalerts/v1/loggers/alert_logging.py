@@ -48,11 +48,11 @@ class AlertLogger:
         self.logger.error(msg, *args, **kwargs)
 
     def log_alert_info(self, info, client=None, **kw):
-        self.g_logger.log_struct(info, client)
+        self.g_logger.log_struct(info)
 
     @deprecated(reason="You should use another function")
     def log_struct(self, info, client=None, **kw):
-        self.g_logger.log_struct(info, client)
+        self.g_logger.log_struct(info)
 
     @deprecated(reason="You should use another function")
     def log_struct_message(self, message: str):
